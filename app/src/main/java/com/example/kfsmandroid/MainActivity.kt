@@ -59,9 +59,9 @@ class MainActivity : AppCompatActivity(), Turnstile {
         messageText.setText(id)
 
         Timer("ClearMessage", false).schedule(if (error) 5000L else 2000L) {
-            this@MainActivity.runOnUiThread(java.lang.Runnable {
+            this@MainActivity.runOnUiThread {
                 messageText.setText("");
-            })
+            }
         }
     }
 

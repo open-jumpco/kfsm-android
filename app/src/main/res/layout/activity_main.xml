@@ -40,7 +40,6 @@
         android:id="@+id/turnstileState"
         android:layout_width="match_parent"
         android:layout_height="36dp"
-        android:layout_centerInParent="true"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
@@ -49,6 +48,8 @@
         android:layout_marginBottom="16dp"
         android:textSize="32dp"
         android:textStyle="bold"
+        android:gravity="center"
+        android:layout_centerInParent="true"
         android:visibility="visible" />
 
     <TextView
@@ -64,6 +65,7 @@
         android:layout_marginBottom="32dp"
         android:textSize="32dp"
         android:textStyle="bold"
+        android:gravity="center"
         android:visibility="visible" />
 
 </LinearLayout>

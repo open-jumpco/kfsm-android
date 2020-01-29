@@ -1,9 +1,12 @@
 package com.example.kfsmandroid
 
+import android.graphics.Color
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import java.util.*
+import kotlin.concurrent.schedule
 
 
 class MainActivity : AppCompatActivity(), Turnstile {
@@ -46,8 +49,20 @@ class MainActivity : AppCompatActivity(), Turnstile {
         }
     }
 
-    fun updateMessage(id: Int) {
+    fun updateMessage(id: Int, error: Boolean) {
+        val color = if (error) {
+            Color.RED
+        } else {
+            Color.BLUE
+        }
+        messageText.setTextColor(color)
         messageText.setText(id)
+
+        Timer("ClearMessage", false).schedule(if (error) 5000L else 2000L) {
+            this@MainActivity.runOnUiThread(java.lang.Runnable {
+                messageText.setText("");
+            })
+        }
     }
 
     override val locked: Boolean
@@ -64,10 +79,10 @@ class MainActivity : AppCompatActivity(), Turnstile {
     }
 
     override fun returnCoin() {
-        updateMessage(R.string.return_coin_message)
+        updateMessage(R.string.return_coin_message, false)
     }
 
     override fun alarm() {
-        updateMessage(R.string.alarm_message)
+        updateMessage(R.string.alarm_message, true)
     }
 }

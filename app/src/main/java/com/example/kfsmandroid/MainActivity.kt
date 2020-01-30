@@ -42,7 +42,7 @@ class MainActivity : AppCompatActivity(), Turnstile {
     fun updateViewState() {
         val textId = when (fsm.currentState()) {
             TurnstileState.LOCKED -> R.string.locked_state
-            TurnstileState.UNLOCED -> R.string.unlocked_state
+            TurnstileState.UNLOCKED -> R.string.unlocked_state
         }
         turnstileState.setText(textId)
         TurnstileEvent.values().forEach { event ->

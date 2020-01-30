@@ -11,11 +11,15 @@ import kotlin.concurrent.schedule
 
 class MainActivity : AppCompatActivity(), Turnstile {
     private var _locked: Boolean = true
-    private val fsm = TurnstileFSM(this)
+    private val fsm: TurnstileFSM
     private lateinit var coinButton: Button
     private lateinit var passButton: Button
     private lateinit var turnstileState: TextView
     private lateinit var messageText: TextView
+
+    init {
+        fsm = TurnstileFSM(this)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

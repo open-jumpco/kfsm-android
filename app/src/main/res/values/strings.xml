@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">KFSM Android</string>
+    <string name="app_name">KFSM Android Turnstile</string>
     <string name="coin_button">Coin</string>
     <string name="pass_button">Pass</string>
     <string name="locked_state">Locked</string>

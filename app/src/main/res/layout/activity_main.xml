@@ -8,48 +8,47 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <Button
-        android:id="@+id/coinButton"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:layout_centerInParent="true"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="48dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="48dp"
-        android:layout_marginBottom="32dp"
-        android:text="@string/coin_button"
-        android:textStyle="bold" />
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
 
-    <Button
-        android:id="@+id/passButton"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:layout_centerInParent="true"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="48dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="48dp"
-        android:layout_marginBottom="32dp"
-        android:text="@string/pass_button"
-        android:textStyle="bold" />
+        <Button
+            android:id="@+id/coinButton"
+            android:layout_width="128dp"
+            android:layout_height="48dp"
+            android:layout_marginLeft="48dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="32dp"
+            android:text="@string/coin_button"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/passButton"
+            android:layout_width="128dp"
+            android:layout_height="48dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginRight="48dp"
+            android:layout_marginBottom="32dp"
+            android:text="@string/pass_button"
+            android:textStyle="bold" />
+    </LinearLayout>
 
     <TextView
         android:id="@+id/turnstileState"
         android:layout_width="match_parent"
         android:layout_height="36dp"
+        android:layout_centerInParent="true"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginBottom="16dp"
+        android:gravity="center"
         android:textSize="32dp"
         android:textStyle="bold"
-        android:gravity="center"
-        android:layout_centerInParent="true"
         android:visibility="visible" />
 
     <TextView
@@ -63,9 +62,9 @@
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginBottom="32dp"
+        android:gravity="center"
         android:textSize="32dp"
         android:textStyle="bold"
-        android:gravity="center"
         android:visibility="visible" />
 
 </LinearLayout>

@@ -23,7 +23,7 @@ enum class TurnstileState {
 
 class TurnstileFSM(val turnstile: Turnstile) {
     companion object {
-        private val definition = stateMachine(
+        val definition = stateMachine(
             TurnstileState.values().toSet(),
             TurnstileEvent.values().toSet(), Turnstile::class
         ) {

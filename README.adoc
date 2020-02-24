@@ -1,0 +1,35 @@
+= KFSM Android Demo
+
+A simple application to demonstrate implementing link:https://github.com/open-jumpco/kfsm[KFSM] with the classic Turnstile FSM.
+
+
+== Generated State Table
+
+=== TurnstileFSM State Map
+
+|===
+| Start | Event[Guard] | Target | Action
+
+| LOCKED
+| COIN
+| UNLOCKED
+|  `{unlock()}`
+
+| UNLOCKED
+| PASS
+| LOCKED
+|  `{lock()}`
+
+| UNLOCKED
+| COIN
+| UNLOCKED
+|  `{returnCoin()}`
+|===
+
+
+== Generated State Diagram
+
+image:turnstile.png[]
+
+To learn more about visualization visit link:https://github.com/open-jumpco/kfsm-viz[kfsm-viz] and
+link:https://github.com/open-jumpco/kfsm-viz-plugin[kfsm-viz-plugin]

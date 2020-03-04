@@ -16,7 +16,7 @@ buildscript {
 }
 
 plugins {
-    id "io.jumpco.open.kfsm.viz-plugin" version "1.0.7"
+    id "io.jumpco.open.kfsm.viz-plugin" version "1.0.9"
 }
 
 allprojects {

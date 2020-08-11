@@ -22,7 +22,7 @@ enum class TurnstileState {
     UNLOCKED
 }
 
-class TurnstileFSM(val turnstile: Turnstile) {
+class TurnstileFSM(turnstile: Turnstile) {
     companion object {
         val definition = asyncStateMachine(
             TurnstileState.values().toSet(),
@@ -42,12 +42,13 @@ class TurnstileFSM(val turnstile: Turnstile) {
             }
             whenState(TurnstileState.UNLOCKED) {
                 timeout(TurnstileState.LOCKED, 3000) {
+                    returnCoin()
                     lockOnTimeout()
                 }
                 onEvent(TurnstileEvent.PASS to TurnstileState.LOCKED) {
                     lock()
                 }
-                onEvent(TurnstileEvent.COIN) {
+                onEvent(TurnstileEvent.COIN to TurnstileState.UNLOCKED) {
                     returnCoin()
                 }
             }

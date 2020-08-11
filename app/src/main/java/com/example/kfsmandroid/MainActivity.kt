@@ -9,6 +9,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
+import java.lang.RuntimeException
 import java.util.*
 import kotlin.concurrent.schedule
 
@@ -19,7 +20,8 @@ class MainActivity : AppCompatActivity(), Turnstile {
     private lateinit var coinButton: Button
     private lateinit var passButton: Button
     private lateinit var turnstileState: TextView
-    private lateinit var messageText: TextView
+    private lateinit var message1Text: TextView
+    private lateinit var message2Text: TextView
 
     init {
         fsm = TurnstileFSM(this)
@@ -41,18 +43,19 @@ class MainActivity : AppCompatActivity(), Turnstile {
             }
         }
         turnstileState = findViewById(R.id.turnstileState)
-        messageText = findViewById(R.id.message)
+        message1Text = findViewById(R.id.message1)
+        message2Text = findViewById(R.id.message2)
         runBlocking {
             updateViewState()
         }
     }
 
     suspend fun updateViewState() {
-        val textId = when (fsm.currentState()) {
-            TurnstileState.LOCKED -> R.string.locked_state
-            TurnstileState.UNLOCKED -> R.string.unlocked_state
-        }
         runOnUiThread {
+            val textId = when (fsm.currentState()) {
+                TurnstileState.LOCKED -> R.string.locked_state
+                TurnstileState.UNLOCKED -> R.string.unlocked_state
+            }
             turnstileState.setText(textId)
             TurnstileEvent.values().forEach { event ->
                 when (event) {
@@ -63,7 +66,7 @@ class MainActivity : AppCompatActivity(), Turnstile {
         }
     }
 
-    suspend fun updateMessage(id: Int, error: Boolean) {
+    suspend fun updateMessage(id: Int, error: Boolean, msgId: Int = 1) {
 
         val color = if (error) {
             Color.RED
@@ -71,12 +74,18 @@ class MainActivity : AppCompatActivity(), Turnstile {
             Color.BLUE
         }
         runOnUiThread {
-            messageText.setTextColor(color)
-            messageText.setText(id)
+            val mt = when {
+                msgId == 1 -> message1Text
+                msgId == 2 -> message2Text
+                else -> throw RuntimeException("Cannot find message $msgId");
+            }
+            mt.setTextColor(color)
+            mt.setText(id)
         }
         Timer("ClearMessage", false).schedule(if (error) 5000L else 2000L) {
             this@MainActivity.runOnUiThread {
-                messageText.setText("");
+                message1Text.setText("");
+                message2Text.setText("");
             }
         }
     }
@@ -97,16 +106,18 @@ class MainActivity : AppCompatActivity(), Turnstile {
     }
 
     override suspend fun returnCoin() {
-        updateMessage(R.string.return_coin_message, false)
+        updateMessage(R.string.return_coin_message, false, 2)
+        updateViewState()
     }
 
     override suspend fun alarm() {
         updateMessage(R.string.alarm_message, true)
+        updateViewState()
     }
 
     override suspend fun lockOnTimeout() {
         _locked = true
-        updateMessage(R.string.timeout_message, false)
+        updateMessage(R.string.timeout_message, true)
         updateViewState()
     }
 }

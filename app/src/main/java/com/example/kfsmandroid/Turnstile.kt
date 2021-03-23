@@ -10,6 +10,7 @@ interface Turnstile {
     suspend fun returnCoin()
     suspend fun alarm()
     suspend fun lockOnTimeout()
+    suspend fun updateViewState(currentState: TurnstileState)
 }
 
 enum class TurnstileEvent {
@@ -35,6 +36,7 @@ class TurnstileFSM(val turnstile: Turnstile) {
                     alarm()
                 }
             }
+            onStateChange { _, newState -> updateViewState(newState) }
             whenState(TurnstileState.LOCKED) {
                 onEvent(TurnstileEvent.COIN to TurnstileState.UNLOCKED) {
                     unlock()

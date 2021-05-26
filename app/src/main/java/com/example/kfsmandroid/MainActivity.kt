@@ -21,6 +21,7 @@ class MainActivity : AppCompatActivity(), Turnstile {
     private lateinit var passButton: Button
     private lateinit var turnstileState: TextView
     private lateinit var messageText: TextView
+    private lateinit var alarmText: TextView
 
     companion object {
         val logger = KotlinLogging.logger {}
@@ -44,7 +45,8 @@ class MainActivity : AppCompatActivity(), Turnstile {
             }
         }
         turnstileState = findViewById(R.id.turnstileState)
-        messageText = findViewById(R.id.message)
+        messageText = findViewById(R.id.message1)
+        alarmText = findViewById(R.id.message2)
         runBlocking {
             updateViewState(fsm.currentState())
         }
@@ -78,13 +80,24 @@ class MainActivity : AppCompatActivity(), Turnstile {
             Color.BLUE
         }
         runOnUiThread {
-            messageText.setTextColor(color)
-            messageText.setText(id)
-            val text = messageText.text
-            logger.info { "updateMessage:$text:$error" }
+            if(error) {
+                alarmText.setTextColor(color)
+                alarmText.setText(id)
+            } else {
+                messageText.setTextColor(color)
+                messageText.setText(id)
+                val text = messageText.text
+                logger.info { "updateMessage:$text:$error" }
+            }
         }
         Timer("ClearMessage", false).schedule(if (error) 5000L else 2000L) {
-            this@MainActivity.runOnUiThread { messageText.text = "" }
+            this@MainActivity.runOnUiThread {
+                if(error) {
+                    alarmText.text = ""
+                } else {
+                    messageText.text = ""
+                }
+            }
         }
     }
 

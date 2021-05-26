@@ -21,6 +21,7 @@ unlock()
 a| [source,kotlin]
 ----
 {
+returnCoin()
 lockOnTimeout()
 }
 ----

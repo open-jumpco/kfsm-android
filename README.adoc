@@ -2,6 +2,15 @@
 
 A simple application to demonstrate implementing link:https://github.com/open-jumpco/kfsm[KFSM] with the classic Turnstile FSM.
 
+== Generated State Diagram
+
+=== Simple Diagram
+
+image:turnstile-simple.svg[]
+
+=== Detail Diagram
+
+image:turnstile.svg[]
 
 == Generated State Table
 
@@ -51,11 +60,6 @@ returnCoin()
 ----
 |===
 
-
-
-== Generated State Diagram
-
-image:turnstile.png[]
 
 To learn more about visualization visit link:https://github.com/open-jumpco/kfsm-viz[kfsm-viz] and
 link:https://github.com/open-jumpco/kfsm-viz-plugin[kfsm-viz-plugin]
